@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  app:
+    image: nginx:1.9
+    volumes:
+      - ./www:/usr/share/nginx/html/
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+#      - ./logs/access.log:/var/log/nginx/access.log
+#      - ./logs/error.log:/var/log/nginx/error.log
+#    ports:
+#      - 128.199.66.4:81:80
+#      - 128.199.66.4:444:443
+#      - 127.0.0.1:81:80
+#      - 127.0.0.1:444:443
+    networks:
+      - web
+    environment:
+      VIRTUAL_HOST: "nuttapat.me"
+      LETSENCRYPT_HOST: "nuttapat.me"
+      LETSENCRYPT_EMAIL: "webmaster@hackinteach.com"
+
+networks:
+  web:
+    external:
+      name: reverse_proxy
